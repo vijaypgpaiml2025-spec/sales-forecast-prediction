@@ -6,8 +6,8 @@ def prepare_data():
     # 1. Load dataset from the data folder
     data_path = "data/SuperKart.csv"
     if not os.path.exists(data_path):
-        # Fallback check if named sales_data.csv
-        data_path = "data/sales_data.csv"
+        # Fallback check if named SuperKart.csv
+        data_path = "data/SuperKart.csv"
 
     df = pd.read_csv(data_path)
     print(f"Original dataset shape: {df.shape}")

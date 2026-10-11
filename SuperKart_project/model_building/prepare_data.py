@@ -8,9 +8,9 @@ def prepare_data():
     # Since this file sits in SuperKart_project/model_building/,
     # the root project directory is one level up
     project_root = os.path.abspath(os.path.join(current_dir, ".."))
-    
+
     data_path = os.path.join(project_root, "data", "SuperKart.csv")
-    
+
     # Fallback to local working directory path if relative search fails
     if not os.path.exists(data_path):
         data_path = "SuperKart_project/data/SuperKart.csv"
@@ -57,17 +57,17 @@ def prepare_data():
     test_data = X_test.copy()
     test_data[target] = y_test
 
-    # Save outputs to project root's processed data subfolder or local directory
-    processed_dir = os.path.join(project_root, "data", "processed")
-    os.makedirs(processed_dir, exist_ok=True)
-    
-    # We also save them to the runner working directory root so train.py finds them seamlessly
+    # Save outputs to the runner working directory root so train.py and GHA upload-artifact find them seamlessly
     train_data.to_csv("train.csv", index=False)
     test_data.to_csv("test.csv", index=False)
-    
-    # Save duplicates inside project repository structured dataset
+
+    # Save copies inside structured dataset folders
+    processed_dir = os.path.join(project_root, "data", "processed")
+    os.makedirs(processed_dir, exist_ok=True)
     train_data.to_csv(os.path.join(processed_dir, "train.csv"), index=False)
     test_data.to_csv(os.path.join(processed_dir, "test.csv"), index=False)
 
     print(f"Data preparation completed successfully!")
-   
+
+if __name__ == "__main__":
+    prepare_data()

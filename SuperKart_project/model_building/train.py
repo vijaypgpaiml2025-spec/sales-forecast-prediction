@@ -13,11 +13,17 @@ mlflow.set_tracking_uri("http://localhost:5000")
 mlflow.set_experiment("SuperKart-Package-Prediction-Experiment")
 
 # Loaded splits downloaded from the preceding data preparation job's artifact
-# Defaulting back if not yet written externally
-Xtrain = pd.read_csv("Xtrain.csv")
-Xtest = pd.read_csv("Xtest.csv")
-ytrain = pd.read_csv("ytrain.csv").squeeze()
-ytest = pd.read_csv("ytest.csv").squeeze()
+# We now load train.csv and test.csv because we simplified the split artifact outputs
+train_df = pd.read_csv("train.csv")
+test_df = pd.read_csv("test.csv")
+
+target_col = "Product_Store_Sales_Total"
+
+Xtrain = train_df.drop(columns=[target_col])
+ytrain = train_df[target_col]
+
+Xtest = test_df.drop(columns=[target_col])
+ytest = test_df[target_col]
 
 # Define feature groups for SuperKart pipeline
 numeric_features = [

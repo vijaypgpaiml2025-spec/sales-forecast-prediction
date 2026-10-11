@@ -70,4 +70,4 @@ def prepare_data():
     test_data.to_csv(os.path.join(processed_dir, "test.csv"), index=False)
 
     print(f"Data preparation completed successfully!")
-    print(f
+   
